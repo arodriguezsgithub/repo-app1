@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Project } from '../services/data.service';
+import { Project } from '../services/shared/github-api.service';
 
 @Component({
   selector: 'app-project',
@@ -9,6 +9,8 @@ import { Project } from '../services/data.service';
 export class ProjectComponent {
   @Input()
   project!: Project;
+  @Input()
+  username!: string;
 
   isIos() {
     const win = window as any;

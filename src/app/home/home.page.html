@@ -24,14 +24,22 @@
   </ion-item>
 
   <ion-button 
-    (click)="fetchUserProjects()"
+    (click)="getUserProjects()"
     [disabled]="!username"
     expand="block">
     <ion-icon slot="start" name="search"></ion-icon>
     Search
   </ion-button>
 
+  <ion-button 
+    (click)="clearProjects()"
+    *ngIf="projects.length > 0"
+    expand="block"
+    color="danger">
+    <ion-icon slot="start" name="trash"></ion-icon>
+  </ion-button>
+
   <ion-list>
-    <app-project *ngFor="let project of getUserProjects()" [project]="project"></app-project>
+    <app-project *ngFor="let project of projects" [project]="project" [username]="username"></app-project>
   </ion-list>
 </ion-content>

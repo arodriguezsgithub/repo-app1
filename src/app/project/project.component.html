@@ -1,4 +1,4 @@
-<ion-item *ngIf="project" [routerLink]="'/project/' + project.id" [detail]="false">
+<ion-item *ngIf="project" [routerLink]="['/project', project.name, username ]" [detail]="false">
   <div slot="start" class="dot dot-unread"></div>
   <ion-label class="ion-text-wrap">
     <h2>

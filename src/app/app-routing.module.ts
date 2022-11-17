@@ -7,7 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'project/:id',
+    path: 'project/:reponame/:username',
     loadChildren: () => import('./view-project/view-project.module').then( m => m.ViewProjectPageModule)
   },
   {

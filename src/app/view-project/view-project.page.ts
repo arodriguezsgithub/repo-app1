@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataService, Project } from '../services/data.service';
+import { Subscription } from 'rxjs';
+import { GithubApiService, Project } from '../services/shared/github-api.service';
 
 @Component({
   selector: 'app-view-project',
@@ -8,16 +9,26 @@ import { DataService, Project } from '../services/data.service';
   styleUrls: ['./view-project.page.scss'],
 })
 export class ViewProjectPage implements OnInit {
-  public project!: Project;
+
+  project!: Project;
+  subscription!: Subscription;
 
   constructor(
-    private data: DataService,
+    private githubApiService: GithubApiService,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id')!;
-    this.project = this.data.getProjectById(parseInt(id))!;
+    const reponame = this.activatedRoute.snapshot.paramMap.get('reponame')!;
+    const username = this.activatedRoute.snapshot.paramMap.get('username')!;
+    this.getProjectByName(username, reponame);
+  }
+
+  getProjectByName(username: string, reponame: string){
+    this.subscription = this.githubApiService.getProject$(username, reponame).subscribe({
+      next: (response: Project) => this.project = response,
+      error: (e: any) => console.error(e), 
+    })
   }
 
   getBackButtonText() {
@@ -25,4 +36,9 @@ export class ViewProjectPage implements OnInit {
     const mode = win && win.Ionic && win.Ionic.mode;
     return mode === 'ios' ? 'Inbox' : '';
   }
+
+  ionViewDidLeave(){
+    this.subscription.unsubscribe();
+  }
+
 }
