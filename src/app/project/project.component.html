@@ -1,0 +1,13 @@
+<ion-item *ngIf="project" [routerLink]="'/project/' + project.id" [detail]="false">
+  <div slot="start" class="dot dot-unread"></div>
+  <ion-label class="ion-text-wrap">
+    <h2>
+      {{ project.name }}
+      <span class="date">
+        <ion-note>{{ project.created_at | date }}</ion-note>
+        <ion-icon name="chevron-forward" size="small" *ngIf="isIos()"></ion-icon>
+      </span>
+    </h2>
+    <h3>{{ project.url }}</h3>
+  </ion-label>
+  </ion-item>

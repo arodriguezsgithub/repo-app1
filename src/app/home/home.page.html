@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      User projects
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">  
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">
+        User projects
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-item>
+    <ion-label>User</ion-label>
+    <ion-input 
+      placeholder="type a user"
+      [(ngModel)]="username" 
+    ></ion-input>
+  </ion-item>
+
+  <ion-button 
+    (click)="fetchUserProjects()"
+    [disabled]="!username"
+    expand="block">
+    <ion-icon slot="start" name="search"></ion-icon>
+    Search
+  </ion-button>
+
+  <ion-list>
+    <app-project *ngFor="let project of getUserProjects()" [project]="project"></app-project>
+  </ion-list>
+</ion-content>
